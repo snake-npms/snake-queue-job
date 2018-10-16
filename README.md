@@ -7,10 +7,16 @@ npm i snake-queue-job -S
 ```
 
 ### Usage
-```
+```bash
 const redisClient = require('snake-redis').createClient()
 const SnakeQueueJob = require('snake-queue-job')
 const queueManager = new QueueManager({redis: redisClient})
+# set status, default: quiet
+await queueManager.changeStatus('quiet')
+# default 15
+await queueManager.changeConcurrency(19)
+# minimum is 2 second, default 8
+await queueManager.changePollingInterval(5)
 ```
 options
 - redis: redis client, default: `application._redis`
@@ -56,3 +62,14 @@ class HelloJob {
 }
 module.exports = HelloJob
 ```
+
+
+### 提示
+
+同一时刻相同参数的任务只会被追加一次
+eg: 同一时刻(年月日时分秒)调用两次任务
+```
+queueManager.add('HelloJob').set({wait: 40}).perform_later('world-after')
+queueManager.add('HelloJob').set({wait: 40}).perform_later('world-after')
+```
+内部会根据当前时间，wait, args, jobName， priority， totalTry,... 生成一个唯一key, 相同的key会被忽略
