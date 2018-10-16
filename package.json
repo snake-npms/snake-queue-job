@@ -1,0 +1,23 @@
+{
+  "name": "snake-queue-job",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "cd test && node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snake-npms/snake-queue-job.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snake-npms/snake-queue-job/issues"
+  },
+  "homepage": "https://github.com/snake-npms/snake-queue-job#readme",
+  "devDependencies": {
+    "require-directory": "^2.1.1",
+    "snake-redis": "^1.0.0"
+  }
+}
